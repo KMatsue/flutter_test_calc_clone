@@ -3,9 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 main() {
   late Logic logic;
-  setUp(() {logic = Logic();});
+  setUp(() {
+    logic = Logic();
+  });
   test('1をそのまま出力', () {
-
     logic.input('1');
     expect(logic.text, '1');
   });
@@ -18,11 +19,16 @@ main() {
     expect(logic.text, '3');
   });
 
-  test('連続入力', (){
+  test('連続入力', () {
     expect(logic.text, '0');
     logic.input('1');
     expect(logic.text, '1');
     logic.input('2');
     expect(logic.text, '12');
+  });
+
+  test('0を出力', () {
+    logic.currentValueReset();
+    expect(logic.text, '0');
   });
 }

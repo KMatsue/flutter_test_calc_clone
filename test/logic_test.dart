@@ -112,4 +112,35 @@ main() {
     logic.currentValueReset();
     expect(logic.text, '0');
   });
+
+  group('getDigit', () {
+    test('整数のみの時', () {
+      expect(logic.getNumberOfDigits(1), 1);
+      expect(logic.getNumberOfDigits(12), 2);
+      expect(logic.getNumberOfDigits(123), 3);
+      expect(logic.getNumberOfDigits(1234), 4);
+      expect(logic.getNumberOfDigits(12345), 5);
+      expect(logic.getNumberOfDigits(123456), 6);
+      expect(logic.getNumberOfDigits(1234567), 7);
+      expect(logic.getNumberOfDigits(12345678), 8);
+      expect(logic.getNumberOfDigits(123456789), 9);
+    });
+
+    test('境界値テスト', () {
+      expect(logic.getNumberOfDigits(0), 1);
+      expect(logic.getNumberOfDigits(1), 1);
+      expect(logic.getNumberOfDigits(9), 1);
+      expect(logic.getNumberOfDigits(10), 2);
+      expect(logic.getNumberOfDigits(11), 2);
+
+      expect(logic.getNumberOfDigits(99), 2);
+      expect(logic.getNumberOfDigits(100), 3);
+      expect(logic.getNumberOfDigits(101), 3);
+
+      expect(logic.getNumberOfDigits(99999999), 8);
+      expect(logic.getNumberOfDigits(100000000), 9);
+      expect(logic.getNumberOfDigits(100000001), 9);
+      expect(logic.getNumberOfDigits(999999999), 9);
+    });
+  });
 }

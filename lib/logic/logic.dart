@@ -6,6 +6,10 @@ class Logic {
 
   get text => _text;
 
+  /// 最大桁数
+  static const MAX_DIGIT = 9;
+
+  //　現在の値
   double _currentValue = 0;
   int _numAfterPoint = 0;
   bool _hasPoint = false;
@@ -61,5 +65,15 @@ class Logic {
   String currentValueReset() {
     _currentValue = 0;
     return _currentValue.toStringAsFixed(0);
+  }
+
+  int getNumberOfDigits(double value) {
+    int i = 0;
+    for (; 10 <= value; i++) {
+      value = value / 10;
+      print(value);
+      print(i);
+    }
+    return i+1;
   }
 }

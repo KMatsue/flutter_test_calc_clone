@@ -35,6 +35,8 @@ class Logic {
     if (_hasPoint) {
       if (_numAfterPoint == 0) {
         _text = '${formatter.format(_currentValue)}.';
+      } else if (_currentValue == 0) {
+        _text = _currentValue.toStringAsFixed(_numAfterPoint);
       } else {
         _text = formatter.format(_currentValue);
       }
@@ -44,6 +46,10 @@ class Logic {
     print('numAfterPoint:$_numAfterPoint');
 
     print('outputText:$_text');
+  }
+
+  getDisplayTExt(double value, {int numAfterPoint = -1}){
+
   }
 
   void currentValueReset() {

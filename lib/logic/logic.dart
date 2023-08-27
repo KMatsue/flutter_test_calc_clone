@@ -15,7 +15,9 @@ class Logic {
   void input(String text) {
     print('input:$text');
     if (text == 'C') {
-      currentValueReset();
+      _hasPoint = false;
+      _numAfterPoint = 0;
+      _text = currentValueReset();
       return;
     }
 
@@ -33,27 +35,32 @@ class Logic {
       }
     }
     if (_hasPoint) {
-      if (_numAfterPoint == 0) {
-        _text = '${formatter.format(_currentValue)}.';
-      } else if (_currentValue == 0) {
-        _text = _currentValue.toStringAsFixed(_numAfterPoint);
-      } else {
-        _text = formatter.format(_currentValue);
-      }
+      _text = getDisplayText(_currentValue, numAfterPoint: _numAfterPoint);
     } else {
-      _text = formatter.format(_currentValue);
+      _text = getDisplayText(_currentValue);
     }
+
     print('numAfterPoint:$_numAfterPoint');
 
     print('outputText:$_text');
   }
 
-  getDisplayTExt(double value, {int numAfterPoint = -1}){
-
+  String getDisplayText(double value, {int numAfterPoint = -1}) {
+    if (numAfterPoint != -1) {
+      if (numAfterPoint == 0) {
+        return '${formatter.format(value)}.';
+      } else if (value == 0) {
+        return value.toStringAsFixed(numAfterPoint);
+      } else {
+        return formatter.format(value);
+      }
+    } else {
+      return formatter.format(value);
+    }
   }
 
-  void currentValueReset() {
+  String currentValueReset() {
     _currentValue = 0;
-    _text = _currentValue.toStringAsFixed(0);
+    return _currentValue.toStringAsFixed(0);
   }
 }

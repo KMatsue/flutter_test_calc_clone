@@ -84,6 +84,21 @@ main() {
     expect(logic.text, '0.00000000');
   });
 
+  group('getDisplayText', () {
+    test('整数', () {
+      expect(logic.getDisplayText(0, numAfterPoint: 8), '0.00000000');
+      expect(logic.getDisplayText(1), '1');
+      expect(logic.getDisplayText(1234), '1,234');
+      expect(logic.getDisplayText(1234567), '1,234,567');
+    });
+    test('小数点以下のみ', () {
+      expect(logic.getDisplayText(0, numAfterPoint: 0), '0.');
+      expect(logic.getDisplayText(0, numAfterPoint: 1), '0.0');
+      expect(logic.getDisplayText(0, numAfterPoint: 8), '0.00000000');
+      expect(logic.getDisplayText(0.12345, numAfterPoint: 1), '0.12345');
+    });
+  });
+
   test('0を出力', () {
     logic.currentValueReset();
     expect(logic.text, '0');

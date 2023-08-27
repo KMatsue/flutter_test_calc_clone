@@ -104,7 +104,7 @@ main() {
     test('1以上で小数点で最後が0の時', () {
       expect(logic.getDisplayText(1.0, numAfterPoint: 1), '1.0');
       expect(logic.getDisplayText(1234.0, numAfterPoint: 1), '1,234.0');
-      expect(logic.getDisplayText(12345.000, numAfterPoint: 1), '12,345.0');
+      expect(logic.getDisplayText(12345.000, numAfterPoint: 3), '12,345.000');
     });
   });
 

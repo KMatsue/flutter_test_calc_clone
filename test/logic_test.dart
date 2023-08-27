@@ -15,8 +15,8 @@ main() {
     expect(logic.text, '2');
   });
   test('3をそのまま出力', () {
-    logic.input('3');
-    expect(logic.text, '3');
+    logic.input('3456');
+    expect(logic.text, '3,456');
   });
 
   test('連続入力', () {
@@ -40,6 +40,31 @@ main() {
     logic.input('9');
     expect(logic.text, '123,456,789');
   });
+
+  test('小数点の入力', () {
+    expect(logic.text, '0');
+    logic.input('1');
+    expect(logic.text, '1');
+    logic.input('.');
+    expect(logic.text, '1.');
+    logic.input('2');
+    expect(logic.text, '1.2');
+    logic.input('3');
+    expect(logic.text, '1.23');
+    logic.input('4');
+    expect(logic.text, '1.234');
+    logic.input('5');
+    expect(logic.text, '1.2345');
+    logic.input('6');
+    expect(logic.text, '1.23456');
+    logic.input('7');
+    expect(logic.text, '1.234567');
+    logic.input('8');
+    expect(logic.text, '1.2345678');
+    logic.input('9');
+    expect(logic.text, '1.23456789');
+  });
+
 
   test('0を出力', () {
     logic.currentValueReset();

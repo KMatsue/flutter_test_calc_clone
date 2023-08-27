@@ -190,9 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ".",
                   AppTheme.colorNum,
                   AppTheme.colorText,
-                  onTap: (text) => setState(
-                    () => txtResult = text,
-                  ),
+                  onTap: (text) => tapButton(text),
                 ),
                 Button(
                   "=",

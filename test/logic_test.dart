@@ -97,6 +97,15 @@ main() {
       expect(logic.getDisplayText(0, numAfterPoint: 8), '0.00000000');
       expect(logic.getDisplayText(0.12345, numAfterPoint: 1), '0.12345');
     });
+    test('1以上で小数点がある時', () {
+      expect(logic.getDisplayText(1.1, numAfterPoint: 1), '1.1');
+      expect(logic.getDisplayText(12345.678, numAfterPoint: 1), '12,345.678');
+    });
+    test('1以上で小数点で最後が0の時', () {
+      expect(logic.getDisplayText(1.0, numAfterPoint: 1), '1.0');
+      expect(logic.getDisplayText(1234.0, numAfterPoint: 1), '1,234.0');
+      expect(logic.getDisplayText(12345.000, numAfterPoint: 1), '12,345.0');
+    });
   });
 
   test('0を出力', () {

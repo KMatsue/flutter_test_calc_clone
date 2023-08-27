@@ -47,16 +47,15 @@ class Logic {
 
   String getDisplayText(double value, {int numAfterPoint = -1}) {
     if (numAfterPoint != -1) {
+      int intPart = value.toInt();
       if (numAfterPoint == 0) {
         return '${formatter.format(value)}.';
-      } else if (value == 0) {
-        return value.toStringAsFixed(numAfterPoint);
-      } else {
-        return formatter.format(value);
+      } else if (intPart == value) {
+        return formatter.format(intPart) +
+            (value - intPart).toStringAsFixed(numAfterPoint).substring(1);
       }
-    } else {
-      return formatter.format(value);
     }
+    return formatter.format(value);
   }
 
   String currentValueReset() {

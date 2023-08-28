@@ -61,9 +61,21 @@ class Logic {
       _hasPoint = true;
     } else if (text == '=') {
       if (_previousOperation == 'x') {
-        _displayValue = _previousValue * _currentValue;
+        if (_memorialOperation == '+') {
+          _displayValue = _memorialValue + (_previousValue * _currentValue);
+        } else if (_memorialOperation == '-') {
+          _displayValue = _memorialValue - (_previousValue * _currentValue);
+        } else {
+          _displayValue = _previousValue * _currentValue;
+        }
       } else if (_previousOperation == '/') {
-        _displayValue = _previousValue / _currentValue;
+        if (_memorialOperation == '+') {
+          _displayValue = _memorialValue + (_previousValue / _currentValue);
+        } else if (_memorialOperation == '-') {
+          _displayValue = _memorialValue - (_previousValue / _currentValue);
+        } else {
+          _displayValue = _previousValue / _currentValue;
+        }
       } else if (_memorialOperation == '+') {
         _displayValue = _memorialValue + _currentValue;
       } else if (_memorialOperation == '-') {
@@ -82,14 +94,22 @@ class Logic {
       _currentValue = 0;
       _previousOperation = text;
     } else if (text == '+' || text == '-') {
-      if (_memorialOperation == '') {
+      if (_previousOperation == 'x') {
+        _memorialValue = _previousValue * _currentValue;
+        _previousValue = 0;
+        _previousOperation = '';
+      } else if (_previousOperation == '/') {
+        _memorialValue = _previousValue / _currentValue;
+        _previousValue = 0;
+        _previousOperation = '';
+      } else if (_memorialOperation == '') {
         _memorialValue = _currentValue;
       } else if (_memorialOperation == '+') {
         _memorialValue = _memorialValue + _currentValue;
       } else if (_memorialOperation == '-') {
         _memorialValue = _memorialValue - _currentValue;
       }
-      // _displayValue = _memorialValue;
+      _displayValue = _memorialValue;
       _currentValue = 0;
       _memorialOperation = text;
     } else {

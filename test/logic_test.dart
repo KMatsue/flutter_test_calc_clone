@@ -121,7 +121,7 @@ main() {
   });
 
   test('0を出力', () {
-    logic.currentValueReset();
+    logic.resetValue();
     expect(logic.text, '0');
   });
 
@@ -432,6 +432,118 @@ main() {
         logic.input('=');
         expect(logic.text, '14');
       });
+    });
+  });
+
+  group('四則演算混在', () {
+    test('足し算引き算', () {
+      logic.input('3');
+      logic.input('+');
+      logic.input('4');
+      logic.input('-');
+      logic.input('5');
+      logic.input('=');
+      expect(logic.text, '2');
+    });
+    test('かけ算割り算', () {
+      logic.input('3');
+      logic.input('x');
+      logic.input('4');
+      logic.input('/');
+      logic.input('6');
+      logic.input('=');
+      expect(logic.text, '2');
+    });
+    test('かけ算足し算', () {
+      logic.input('3');
+      logic.input('x');
+      logic.input('4');
+      logic.input('+');
+      expect(logic.memorialValue, 12);
+      expect(logic.text, '12');
+      expect(logic.currentValue, 0);
+      expect(logic.previousValue, 0);
+      expect(logic.previousOperation, '');
+      expect(logic.memorialOperation, '+');
+
+      logic.input('5');
+      logic.input('=');
+      expect(logic.text, '17');
+    });
+
+    test('3x4+5x4=32', () {
+      logic.input('3');
+      logic.input('x');
+      logic.input('4');
+      logic.input('+');
+      expect(logic.memorialValue, 12);
+      expect(logic.text, '12');
+      expect(logic.currentValue, 0);
+      expect(logic.previousValue, 0);
+      expect(logic.previousOperation, '');
+      expect(logic.memorialOperation, '+');
+
+      logic.input('5');
+      logic.input('x');
+      logic.input('4');
+      logic.input('=');
+      expect(logic.text, '32');
+    });
+
+    test('3x4+5x4x3=72', () {
+      logic.input('3');
+      logic.input('x');
+      logic.input('4');
+      logic.input('+');
+      logic.input('5');
+      logic.input('x');
+      logic.input('4');
+      logic.input('x');
+      logic.input('3');
+      logic.input('=');
+      expect(logic.text, '72');
+    });
+
+    test('5x4+5x4/2=30', () {
+      logic.input('5');
+      logic.input('x');
+      logic.input('4');
+      logic.input('+');
+      logic.input('5');
+      logic.input('x');
+      logic.input('4');
+      logic.input('/');
+      logic.input('2');
+      logic.input('=');
+      expect(logic.text, '30');
+    });
+
+    test('5x4-5x4/2=10', () {
+      logic.input('5');
+      logic.input('x');
+      logic.input('4');
+      logic.input('-');
+      logic.input('5');
+      logic.input('x');
+      logic.input('4');
+      logic.input('/');
+      logic.input('2');
+      logic.input('=');
+      expect(logic.text, '10');
+    });
+
+    test('5x4-5x4x2=-20', () {
+      logic.input('5');
+      logic.input('x');
+      logic.input('4');
+      logic.input('-');
+      logic.input('5');
+      logic.input('x');
+      logic.input('4');
+      logic.input('x');
+      logic.input('2');
+      logic.input('=');
+      expect(logic.text, '-20');
     });
   });
 }

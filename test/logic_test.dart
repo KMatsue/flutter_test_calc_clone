@@ -106,6 +106,18 @@ main() {
       expect(logic.getDisplayText(1234.0, numAfterPoint: 1), '1,234.0');
       expect(logic.getDisplayText(12345.000, numAfterPoint: 3), '12,345.000');
     });
+
+    test('四捨五入', () {
+      expect(logic.getDisplayText(10 / 3, numAfterPoint: 8), '3.33333333');
+      expect(logic.getDisplayText(1 / 3, numAfterPoint: 8), '0.33333333');
+
+      expect(logic.getDisplayText(100 / 3, numAfterPoint: 7), '33.3333333');
+
+      expect(logic.getDisplayText(20000 / 3, numAfterPoint: 5), '6,666.66667');
+      expect(logic.getDisplayText(2000 / 3, numAfterPoint: 6), '666.666667');
+      expect(logic.getDisplayText(20 / 3, numAfterPoint: 8), '6.66666667');
+      expect(logic.getDisplayText(2 / 3, numAfterPoint: 8), '0.66666667');
+    });
   });
 
   test('0を出力', () {
@@ -192,5 +204,149 @@ main() {
       });
     });
 
+    group('かけ算', () {
+      test('2x3=6', () {
+        logic.input('2');
+        expect(logic.text, '2');
+        expect(logic.currentValue, 2);
+        expect(logic.previousValue, 0);
+        expect(logic.memorialValue, 0);
+
+        logic.input('x');
+        expect(logic.previousOperation, 'x');
+        expect(logic.currentValue, 0);
+        expect(logic.previousValue, 2);
+        expect(logic.memorialValue, 0);
+        expect(logic.text, '2');
+
+        logic.input('3');
+        expect(logic.text, '3');
+        expect(logic.currentValue, 3);
+        expect(logic.previousValue, 2);
+        expect(logic.memorialValue, 0);
+
+        logic.input('=');
+        expect(logic.text, '6');
+        expect(logic.currentValue, 0);
+        expect(logic.previousValue, 0);
+        expect(logic.memorialValue, 0);
+      });
+
+      test('2x3x4x5=120', () {
+        logic.input('2');
+        logic.input('x');
+        logic.input('3');
+        logic.input('x');
+        logic.input('4');
+        logic.input('x');
+        logic.input('5');
+        logic.input('=');
+        expect(logic.text, '120');
+      });
+    });
+
+    group('割り算', () {
+      test('10/2=5', () {
+        logic.input('1');
+        logic.input('0');
+        expect(logic.text, '10');
+        expect(logic.currentValue, 10);
+        expect(logic.previousValue, 0);
+        expect(logic.memorialValue, 0);
+
+        logic.input('/');
+        expect(logic.previousOperation, '/');
+        expect(logic.currentValue, 0);
+        expect(logic.previousValue, 10);
+        expect(logic.memorialValue, 0);
+        expect(logic.text, '10');
+
+        logic.input('2');
+        expect(logic.text, '2');
+        expect(logic.currentValue, 2);
+        expect(logic.previousValue, 10);
+        expect(logic.memorialValue, 0);
+
+        logic.input('=');
+        expect(logic.text, '5');
+        expect(logic.currentValue, 0);
+        expect(logic.previousValue, 0);
+        expect(logic.memorialValue, 0);
+      });
+
+      test('120/3/4=10', () {
+        logic.input('1');
+        logic.input('2');
+        logic.input('0');
+        logic.input('/');
+        logic.input('3');
+        logic.input('/');
+        logic.input('4');
+        logic.input('=');
+        expect(logic.text, '10');
+      });
+
+      test('1/3/=0.33333333', () {
+        logic.input('1');
+        logic.input('/');
+        logic.input('3');
+        logic.input('=');
+        expect(logic.text, '0.33333333');
+      });
+
+      test('2/3/=0.66666667', () {
+        logic.input('2');
+        logic.input('/');
+        logic.input('3');
+        logic.input('=');
+        expect(logic.text, '0.66666667');
+      });
+    });
+
+    group('round', () {
+      test('小数点四捨五入', () {
+        expect(logic.round(1.1, 0), 1);
+        // 2の分け目
+        expect(logic.round(1.499, 0), 1);
+        expect(logic.round(1.500, 0), 2);
+        expect(logic.round(2.0, 0), 2);
+        expect(logic.round(2.5, 0), 3);
+
+        // 最大値
+        expect(logic.round(99999998.4, 0), 99999998);
+        expect(logic.round(99999998.5, 0), 99999999);
+        expect(logic.round(99999999.499, 0), 99999999);
+      });
+
+      test('小数点以下1桁', () {
+        expect(logic.round(1.04, 1), 1);
+        expect(logic.round(1.05, 1), 1.1);
+        expect(logic.round(1.1, 1), 1.1);
+        expect(logic.round(1.14, 1), 1.1);
+        expect(logic.round(1.15, 1), 1.2);
+      });
+
+      test('小数点以下4桁', () {
+        expect(logic.round(1.00004, 4), 1.0000);
+        expect(logic.round(1.00005, 4), 1.0001);
+        expect(logic.round(1.0001, 4), 1.0001);
+        expect(logic.round(1.00014, 4), 1.0001);
+        expect(logic.round(1.00015, 4), 1.0002);
+
+        expect(logic.round(1234.00004, 4), 1234.0000);
+        expect(logic.round(1234.00005, 4), 1234.0001);
+        expect(logic.round(1234.0001, 4), 1234.0001);
+        expect(logic.round(1234.00014, 4), 1234.0001);
+        expect(logic.round(1234.00015, 4), 1234.0002);
+      });
+
+      test('小数点以下7桁', () {
+        expect(logic.round(1.00000004, 7), 1.0000000);
+        expect(logic.round(1.00000005, 7), 1.0000001);
+        expect(logic.round(1.0000001, 7), 1.0000001);
+        expect(logic.round(1.00000014, 7), 1.0000001);
+        expect(logic.round(1.00000015, 7), 1.0000002);
+      });
+    });
   });
 }

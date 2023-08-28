@@ -142,5 +142,55 @@ main() {
       expect(logic.getNumberOfDigits(100000001), 9);
       expect(logic.getNumberOfDigits(999999999), 9);
     });
+
+    group('9桁以上は無視', () {
+      test('整数', () {
+        logic.input('1');
+        logic.input('2');
+        logic.input('3');
+        logic.input('4');
+        logic.input('5');
+        logic.input('6');
+        logic.input('7');
+        logic.input('8');
+        logic.input('9');
+        expect(logic.text, '123,456,789');
+        logic.input('0');
+        expect(logic.text, '123,456,789');
+      });
+      test('小数あり', () {
+        logic.input('1');
+        logic.input('2');
+        logic.input('3');
+        logic.input('.');
+        logic.input('4');
+        logic.input('5');
+        logic.input('6');
+        logic.input('7');
+        logic.input('8');
+        logic.input('9');
+        expect(logic.text, '123.456789');
+        logic.input('2');
+        logic.input('9');
+        expect(logic.text, '123.456789');
+      });
+
+      test('小数あり2', () {
+        logic.input('0');
+        logic.input('.');
+        logic.input('1');
+        logic.input('2');
+        logic.input('3');
+        logic.input('.');
+        logic.input('4');
+        logic.input('5');
+        logic.input('6');
+        logic.input('7');
+        logic.input('8');
+        logic.input('9');
+        expect(logic.text, '0.12345678');
+      });
+    });
+
   });
 }

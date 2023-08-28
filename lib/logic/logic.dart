@@ -28,7 +28,11 @@ class Logic {
     if (text == '.') {
       _hasPoint = true;
     } else {
-      if (_hasPoint) {
+      //　数値が入力された場合
+      int digit = getNumberOfDigits(_currentValue);
+      if (digit+ _numAfterPoint == MAX_DIGIT ) {
+        // return;
+      } else if (_hasPoint) {
         _numAfterPoint++;
         _currentValue =
             _currentValue + int.parse(text) * math.pow(0.1, _numAfterPoint);
@@ -71,9 +75,9 @@ class Logic {
     int i = 0;
     for (; 10 <= value; i++) {
       value = value / 10;
-      print(value);
-      print(i);
+      // print(value);
+      // print(i);
     }
-    return i+1;
+    return i + 1;
   }
 }

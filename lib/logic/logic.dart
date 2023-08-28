@@ -53,7 +53,7 @@ class Logic {
     if (text == 'C') {
       _hasPoint = false;
       _numAfterPoint = 0;
-      _text = currentValueReset();
+      resetValue();
       return;
     }
 
@@ -70,40 +70,26 @@ class Logic {
         _displayValue = _memorialValue - _currentValue;
       }
       resetValue();
-    } else if (text == 'x') {
+    } else if (text == 'x' || text == '/') {
       if (_previousOperation == '') {
         _previousValue = _currentValue;
-      } else {
+      } else if (_previousOperation == 'x') {
         _previousValue = _previousValue * _currentValue;
-      }
-      _displayValue = _previousValue;
-      _currentValue = 0;
-      _previousOperation = text;
-    } else if (text == '/') {
-      if (_previousOperation == '') {
-        _previousValue = _currentValue;
-      } else {
+      } else if (_previousOperation == '/') {
         _previousValue = _previousValue / _currentValue;
       }
       _displayValue = _previousValue;
       _currentValue = 0;
       _previousOperation = text;
-    } else if (text == '+') {
+    } else if (text == '+' || text == '-') {
       if (_memorialOperation == '') {
         _memorialValue = _currentValue;
-      } else {
+      } else if (_memorialOperation == '+') {
         _memorialValue = _memorialValue + _currentValue;
-      }
-      _displayValue = _memorialValue;
-      _currentValue = 0;
-      _memorialOperation = text;
-    } else if (text == '-') {
-      if (_memorialOperation == '') {
-        _memorialValue = _currentValue;
-      } else {
+      } else if (_memorialOperation == '-') {
         _memorialValue = _memorialValue - _currentValue;
       }
-      _displayValue = _memorialValue;
+      // _displayValue = _memorialValue;
       _currentValue = 0;
       _memorialOperation = text;
     } else {
@@ -160,17 +146,18 @@ class Logic {
     _memorialValue = 0;
     _previousOperation = '';
     _memorialOperation = '';
+    _text = '0';
   }
 
-  String currentValueReset() {
-    _currentValue = 0;
-    _displayValue = 0;
-    _previousValue = 0;
-    _memorialValue = 0;
-    _previousOperation = '';
-    _memorialOperation = '';
-    return _displayValue.toStringAsFixed(0);
-  }
+  // String currentValueReset() {
+  //   _currentValue = 0;
+  //   _displayValue = 0;
+  //   _previousValue = 0;
+  //   _memorialValue = 0;
+  //   _previousOperation = '';
+  //   _memorialOperation = '';
+  //   return _displayValue.toStringAsFixed(0);
+  // }
 
   /// 整数の桁数を取得
   int getNumberOfDigits(double value) {

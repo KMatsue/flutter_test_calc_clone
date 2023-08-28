@@ -66,6 +66,8 @@ class Logic {
         _displayValue = _previousValue / _currentValue;
       } else if (_memorialOperation == '+') {
         _displayValue = _memorialValue + _currentValue;
+      } else if (_memorialOperation == '-') {
+        _displayValue = _memorialValue - _currentValue;
       }
       resetValue();
     } else if (text == 'x') {
@@ -91,6 +93,15 @@ class Logic {
         _memorialValue = _currentValue;
       } else {
         _memorialValue = _memorialValue + _currentValue;
+      }
+      _displayValue = _memorialValue;
+      _currentValue = 0;
+      _memorialOperation = text;
+    } else if (text == '-') {
+      if (_memorialOperation == '') {
+        _memorialValue = _currentValue;
+      } else {
+        _memorialValue = _memorialValue - _currentValue;
       }
       _displayValue = _memorialValue;
       _currentValue = 0;

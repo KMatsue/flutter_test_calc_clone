@@ -348,5 +348,92 @@ main() {
         expect(logic.round(1.00000015, 7), 1.0000002);
       });
     });
+
+    group('足し算', () {
+      test('2+3=5', () {
+        logic.input('2');
+        expect(logic.text, '2');
+        expect(logic.currentValue, 2);
+        expect(logic.previousValue, 0);
+        expect(logic.memorialValue, 0);
+
+        logic.input('+');
+        expect(logic.previousOperation, '');
+        expect(logic.memorialOperation, '+');
+        expect(logic.currentValue, 0);
+        expect(logic.previousValue, 0);
+        expect(logic.memorialValue, 2);
+        expect(logic.text, '2');
+
+        logic.input('3');
+        expect(logic.text, '3');
+        expect(logic.currentValue, 3);
+        expect(logic.previousValue, 0);
+        expect(logic.memorialValue, 2);
+
+        logic.input('=');
+        expect(logic.text, '5');
+        expect(logic.currentValue, 0);
+        expect(logic.previousValue, 0);
+        expect(logic.memorialValue, 0);
+      });
+
+      test('2+3+4+5=14', () {
+        logic.input('2');
+        logic.input('+');
+        logic.input('3');
+        logic.input('+');
+        logic.input('4');
+        logic.input('+');
+        logic.input('5');
+        logic.input('=');
+        expect(logic.text, '14');
+      });
+    });
+    //
+    // group('引き算', () {
+    //   test('5-3=2', () {
+    //     logic.input('5');
+    //     expect(logic.text, '5');
+    //     expect(logic.currentValue, 5);
+    //     expect(logic.previousValue, 0);
+    //     expect(logic.memorialValue, 0);
+    //
+    //     logic.input('-');
+    //     expect(logic.previousOperation, '');
+    //     expect(logic.memorialOperation, '-');
+    //     expect(logic.currentValue, 0);
+    //     expect(logic.previousValue, 0);
+    //     expect(logic.memorialValue, 5);
+    //     expect(logic.text, '5');
+    //
+    //     logic.input('3');
+    //     expect(logic.text, '3');
+    //     expect(logic.currentValue, 3);
+    //     expect(logic.previousValue, 0);
+    //     expect(logic.memorialValue, 5);
+    //
+    //     logic.input('=');
+    //     expect(logic.text, '2');
+    //     expect(logic.currentValue, 0);
+    //     expect(logic.previousValue, 0);
+    //     expect(logic.memorialValue, 0);
+    //   });
+    //
+    //   test('20-1-2-3', () {
+    //     logic.input('2');
+    //     logic.input('0');
+    //     logic.input('-');
+    //     logic.input('1');
+    //     logic.input('-');
+    //     logic.input('2');
+    //     logic.input('-');
+    //     logic.input('3');
+    //     logic.input('=');
+    //     expect(logic.text, '14');
+    //   });
+    // });
+    //
+    //
   });
 }

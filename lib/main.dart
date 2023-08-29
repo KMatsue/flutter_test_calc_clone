@@ -61,152 +61,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Button(
-                  "C",
-                  AppTheme.colorFunc,
-                  AppTheme.colorMain,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "+/-",
-                  AppTheme.colorFunc,
-                  AppTheme.colorMain,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "%",
-                  AppTheme.colorFunc,
-                  AppTheme.colorMain,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "/",
-                  AppTheme.colorCalc,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Button(
-                  "7",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "8",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "9",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "x",
-                  AppTheme.colorCalc,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Button(
-                  "4",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "5",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "6",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "-",
-                  AppTheme.colorCalc,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Button(
-                  "1",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "2",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "3",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "+",
-                  AppTheme.colorCalc,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Button(
-                  "0",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  ".",
-                  AppTheme.colorNum,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-                Button(
-                  "=",
-                  AppTheme.colorCalc,
-                  AppTheme.colorText,
-                  onTap: (text) => tapButton(text),
-                ),
-              ],
-            ),
+            KeyPadPart(
+              onTap: (text) => tapButton(text),
+            )
           ],
         ),
       ),
     );
   } // end of st
 
-  void tapButton(text) {
+  void tapButton(String text) {
     _logic.input(text);
     setState(
       () => txtResult = _logic.text,
@@ -221,7 +85,7 @@ class Button extends StatelessWidget {
 
   final Color colorText;
 
-  final ValueChanged onTap;
+  final ValueChanged<String> onTap;
 
   const Button(this.text, this.colorButton, this.colorText,
       {super.key, required this.onTap});
@@ -241,7 +105,7 @@ class Button extends StatelessWidget {
         ),
         child: Padding(
           padding: text == "0"
-              ? const EdgeInsets.only(left: 20, top: 20, right: 100, bottom: 20)
+              ? const EdgeInsets.only(left: 20, top: 20, right: 100, bottom: 20,)
               : text.length == 1
                   ? const EdgeInsets.all(22)
                   : const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -256,6 +120,160 @@ class Button extends StatelessWidget {
                 ),
         ),
       ),
+    );
+  }
+}
+
+class KeyPadPart extends StatelessWidget {
+  final ValueChanged onTap;
+
+  const KeyPadPart({super.key, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Button(
+              "C",
+              AppTheme.colorFunc,
+              AppTheme.colorMain,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "+/-",
+              AppTheme.colorFunc,
+              AppTheme.colorMain,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "%",
+              AppTheme.colorFunc,
+              AppTheme.colorMain,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "/",
+              AppTheme.colorCalc,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Button(
+              "7",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "8",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "9",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "x",
+              AppTheme.colorCalc,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Button(
+              "4",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "5",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "6",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "-",
+              AppTheme.colorCalc,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Button(
+              "1",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "2",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "3",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "+",
+              AppTheme.colorCalc,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Button(
+              "0",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              ".",
+              AppTheme.colorNum,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+            Button(
+              "=",
+              AppTheme.colorCalc,
+              AppTheme.colorText,
+              onTap: (text) => onTap(text),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

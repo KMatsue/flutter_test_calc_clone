@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: Text(
                     txtResult,
+                    key: const Key('txtResult'),
                     style: const TextStyle(
                       color: AppTheme.colorText,
                       fontSize: 60,

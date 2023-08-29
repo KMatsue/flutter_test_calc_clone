@@ -10,8 +10,8 @@ class Button extends StatelessWidget {
 
   final ValueChanged<String>? onTap;
 
-  const Button(this.text, this.colorButton, this.colorText,
-      {super.key, this.onTap});
+   Button(this.text, this.colorButton, this.colorText,
+      {this.onTap}): super(key: Key(text));
 
   @override
   Widget build(BuildContext context) {

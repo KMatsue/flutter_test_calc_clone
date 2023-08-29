@@ -7,7 +7,7 @@ void main() {
   group('テキスト', () {
     testWidgets('Button', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+         MaterialApp(
           home: Button(
             '0',
             AppTheme.colorNum,
@@ -22,7 +22,7 @@ void main() {
     });
     testWidgets('Button', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+         MaterialApp(
           home: Button(
             '1',
             AppTheme.colorNum,
@@ -92,7 +92,7 @@ void main() {
   group('色', () {
     testWidgets('1', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+         MaterialApp(
           home: Button(
             '1',
             Colors.black,
@@ -112,7 +112,7 @@ void main() {
 
     testWidgets('2', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+         MaterialApp(
           home: Button(
             '2',
             Colors.white,

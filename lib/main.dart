@@ -1,5 +1,3 @@
-import 'package:calc_clone/constant.dart';
-import 'package:calc_clone/logic/logic.dart';
 import 'package:calc_clone/pages/home_page.dart';
 import 'package:flutter/material.dart';
 

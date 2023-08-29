@@ -8,17 +8,16 @@ class Button extends StatelessWidget {
 
   final Color colorText;
 
-  final ValueChanged<String> onTap;
+  final ValueChanged<String>? onTap;
 
   const Button(this.text, this.colorButton, this.colorText,
-      {super.key, required this.onTap});
+      {super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: ElevatedButton(
-        onPressed: () => onTap(text),
         style: ElevatedButton.styleFrom(
           foregroundColor: colorText,
           backgroundColor: colorButton,
@@ -26,21 +25,27 @@ class Button extends StatelessWidget {
           padding: EdgeInsets.zero,
           shape: text == "0" ? const StadiumBorder() : const CircleBorder(),
         ),
+        onPressed: () => onTap != null ? onTap!(text) : null,
         child: Padding(
           padding: text == "0"
-              ? const EdgeInsets.only(left: 20, top: 20, right: 100, bottom: 20,)
+              ? const EdgeInsets.only(
+                  left: 20,
+                  top: 20,
+                  right: 100,
+                  bottom: 20,
+                )
               : text.length == 1
-              ? const EdgeInsets.all(22)
-              : const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                  ? const EdgeInsets.all(22)
+                  : const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: AppTheme.mapIcon.containsKey(text)
               ? Icon(
-            AppTheme.mapIcon[text],
-            size: 26,
-          )
+                  AppTheme.mapIcon[text],
+                  size: 26,
+                )
               : Text(
-            text,
-            style: const TextStyle(fontSize: 24),
-          ),
+                  text,
+                  style: const TextStyle(fontSize: 24),
+                ),
         ),
       ),
     );
